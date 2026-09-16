@@ -179,9 +179,9 @@ as_app "cd '$APP_DIR/backend' \
 	&& $RBENV exec bundle config set --local without 'development test' \
 	&& TMPDIR='$BUILD_TMP_DIR' MAKEFLAGS=-j1 $RBENV exec bundle install --jobs 1 \
 	&& set -a && . '$BACKEND_ENV' && set +a \
-	&& $RBENV exec bin/rails db:prepare"
+	&& $RBENV exec ruby bin/rails db:prepare"
 if [[ $SEED == yes ]]; then
-	as_app "cd '$APP_DIR/backend' && set -a && . '$BACKEND_ENV' && set +a && $RBENV exec bin/rails db:seed"
+	as_app "cd '$APP_DIR/backend' && set -a && . '$BACKEND_ENV' && set +a && $RBENV exec ruby bin/rails db:seed"
 fi
 
 step "Frontend"
@@ -245,7 +245,7 @@ User=$APP_USER
 WorkingDirectory=$APP_DIR/backend
 EnvironmentFile=$BACKEND_ENV
 Environment=RBENV_ROOT=$APP_HOME/.rbenv
-ExecStart=$RBENV exec bin/rails uploads:cleanup
+ExecStart=$RBENV exec ruby bin/rails uploads:cleanup
 EOF
 
 cat >/etc/systemd/system/$APP-cleanup.timer <<EOF
