@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd "$(dirname "$0")/.."
+
+echo "== backend"
+(cd backend && bundle install && bin/rails db:prepare && bin/rails db:seed)
+
+echo "== frontend"
+(cd frontend && npm install)
+
+echo
+echo "Готово: bin/dev и http://localhost:5173 (niki@example.com / password123)"
