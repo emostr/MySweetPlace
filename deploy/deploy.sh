@@ -173,10 +173,11 @@ chown root:"$APP_USER" "$BACKEND_ENV" "$FRONTEND_ENV"
 chmod 640 "$BACKEND_ENV" "$FRONTEND_ENV"
 
 step "Backend"
+note "installing gems one at a time to reduce peak memory use"
 as_app "cd '$APP_DIR/backend' \
 	&& $RBENV exec bundle config set --local deployment true \
 	&& $RBENV exec bundle config set --local without 'development test' \
-	&& $RBENV exec bundle install --jobs 4 --quiet \
+	&& TMPDIR='$BUILD_TMP_DIR' MAKEFLAGS=-j1 $RBENV exec bundle install --jobs 1 \
 	&& set -a && . '$BACKEND_ENV' && set +a \
 	&& $RBENV exec bin/rails db:prepare"
 if [[ $SEED == yes ]]; then

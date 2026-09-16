@@ -87,6 +87,8 @@ Ruby is built from source; configuration and compilation can take several minute
 
 Ruby build temporary files live in `/srv/mysweetplace/tmp` to avoid depending on the size of a separate `/tmp` filesystem. App-user commands start in `/srv/mysweetplace` rather than the administrator's home directory. For `No space left on device`, check free space (`df -h /tmp /srv/mysweetplace`) and inodes (`df -i /tmp /srv/mysweetplace`). If `/tmp` and `/srv` share a full filesystem, moving temporary files will not help: free space or enlarge the filesystem first.
 
+Ruby dependencies are installed sequentially (`bundle install --jobs 1`, `MAKEFLAGS=-j1`), with progress output and temporary files in `/srv/mysweetplace/tmp`. If the process still exits with `Killed`, check memory and swap (`free -h`, `swapon --show`) and the kernel log (`sudo journalctl -k -b --since "30 minutes ago"`). `Out of memory` or `Killed process` in the log confirms OOM; also account for container memory limits. Sequential installation reduces peak memory use, but you may still need more RAM or swap backed by available disk space.
+
 ## License
 
 [Apache 2.0](LICENSE). Brand icons come from [simple-icons](https://simpleicons.org) (CC0), fonts from [Fontsource](https://fontsource.org) (OFL), and UI icons from [Lucide](https://lucide.dev) (ISC).
