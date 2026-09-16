@@ -56,7 +56,8 @@ const en: Messages = {
 			source: 'Source code',
 			license: 'Apache 2.0',
 			toTop: 'Back to top ↑',
-			rights: 'Cozy little places on the internet'
+			rights: 'Cozy little places on the internet',
+			infrastructure: 'Powered by infrastructure from'
 		},
 		mascotAlt: 'Niki listening to music on a stack of CDs'
 	},

@@ -11,6 +11,8 @@
 	<img class="mascot" src="/images/niki.png" alt={i18n.t.site.mascotAlt} width="160" height="120" />
 	<div class="copy">
 		&copy; MySweetPlace, {year} · {i18n.t.site.footer.rights}<br />
+		{i18n.t.site.footer.infrastructure}
+		<a href="https://senko.digital" rel="noopener">senko://digital</a><br />
 		<a href="/about">{i18n.t.site.nav.about}</a> ·
 		<a href="https://github.com/emostr/MySweetPlace" rel="noopener">{i18n.t.site.footer.source}</a>
 		·
