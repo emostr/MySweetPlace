@@ -1,0 +1,42 @@
+ru:
+  errors:
+    messages:
+      too_many_items: "содержит слишком много элементов (максимум %{count})"
+      reserved: "зарезервировано"
+      not_an_image: "должно быть изображением jpeg, png, webp, gif или avif"
+      file_too_big: "слишком большой файл (максимум %{count} МБ)"
+      singleton_block: "можно добавить только один раз"
+      unknown_upload: "ссылается на неизвестное изображение"
+  api:
+    unauthorized: "Сначала нужно войти"
+    forbidden: "Так нельзя"
+    not_found: "Здесь ничего нет"
+    validation_failed: "Проверьте поля формы"
+    bad_request: "Некорректный запрос"
+    too_many_requests: "Слишком много попыток, попробуйте чуть позже"
+    invalid_credentials: "Неверная почта или пароль"
+    invalid_password: "Неверный пароль"
+    invalid_token: "Ссылка недействительна или устарела"
+    bad_origin: "Запрос с неизвестного адреса"
+    guestbook_closed: "Гостевая книга закрыта"
+    guestbook_members_only: "Писать здесь могут только жители MySweetPlace"
+    neighbour_self: "Нельзя стать соседом самому себе"
+  activerecord:
+    attributes:
+      user:
+        email_address: "Почта"
+        password: "Пароль"
+      place:
+        username: "Юзернейм"
+      guestbook_entry:
+        author_name: "Имя"
+        body: "Сообщение"
+      note:
+        body: "Текст"
+  passwords_mailer:
+    reset:
+      subject: "Восстановление пароля на MySweetPlace"
+      greeting: "Привет!"
+      intro: "Кто-то (надеемся, что вы) попросил сбросить пароль от вашего местечка на MySweetPlace."
+      action: "Задать новый пароль:"
+      ignore: "Если это были не вы, просто проигнорируйте письмо. Ссылка действует 15 минут."

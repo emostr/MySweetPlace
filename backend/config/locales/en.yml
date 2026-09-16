@@ -1,0 +1,42 @@
+en:
+  errors:
+    messages:
+      too_many_items: "has too many items (maximum is %{count})"
+      reserved: "is reserved"
+      not_an_image: "must be a jpeg, png, webp, gif or avif image"
+      file_too_big: "is too big (maximum is %{count} MB)"
+      singleton_block: "can be added only once"
+      unknown_upload: "points to an unknown image"
+  api:
+    unauthorized: "Please sign in first"
+    forbidden: "You can't do that"
+    not_found: "Nothing here"
+    validation_failed: "Please check the form"
+    bad_request: "Bad request"
+    too_many_requests: "Too many attempts, please try again a bit later"
+    invalid_credentials: "Wrong email or password"
+    invalid_password: "Wrong password"
+    invalid_token: "The link is invalid or has expired"
+    bad_origin: "Request from an unknown origin"
+    guestbook_closed: "The guestbook is closed"
+    guestbook_members_only: "Only residents of MySweetPlace can write here"
+    neighbour_self: "You can't be your own neighbour"
+  activerecord:
+    attributes:
+      user:
+        email_address: "Email"
+        password: "Password"
+      place:
+        username: "Username"
+      guestbook_entry:
+        author_name: "Name"
+        body: "Message"
+      note:
+        body: "Text"
+  passwords_mailer:
+    reset:
+      subject: "Password reset on MySweetPlace"
+      greeting: "Hi!"
+      intro: "Someone (hopefully you) asked to reset the password for your place on MySweetPlace."
+      action: "Set a new password:"
+      ignore: "If it wasn't you, just ignore this email. The link works for 15 minutes."
