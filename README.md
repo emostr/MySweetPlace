@@ -40,7 +40,7 @@ bin/setup   # зависимости, база и местечко маскот�
 bin/dev     # API на :3000, сайт на http://localhost:5173
 ```
 
-Локальный вход за Ники: `niki@example.com` / `password123`. Зимние эффекты можно посмотреть в любое время: `/?season=winter` или `/?season=festive`.
+Зимние эффекты можно посмотреть в любое время: `/?season=winter` или `/?season=festive`.
 
 Проверки:
 
