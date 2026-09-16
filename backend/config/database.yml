@@ -1,0 +1,19 @@
+# production uses peer auth over the unix socket, no password needed
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  max_connections: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: mysweetplace_development
+
+test:
+  <<: *default
+  database: mysweetplace_test
+
+production:
+  <<: *default
+  database: <%= ENV.fetch("DATABASE_NAME", "mysweetplace_production") %>
+  username: <%= ENV.fetch("DATABASE_USER", "mysweetplace") %>
+  password: <%= ENV["DATABASE_PASSWORD"] %>
