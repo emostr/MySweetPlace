@@ -85,6 +85,8 @@ Ruby is built from source; configuration and compilation can take several minute
 - Logs: `journalctl -u mysweetplace-backend -f`.
 - Extra flags: `--no-ssl`, `--firewall`, `--branch`, `--repo`, `--seed`.
 
+Ruby build temporary files live in `/srv/mysweetplace/tmp` to avoid depending on the size of a separate `/tmp` filesystem. App-user commands start in `/srv/mysweetplace` rather than the administrator's home directory. For `No space left on device`, check free space (`df -h /tmp /srv/mysweetplace`) and inodes (`df -i /tmp /srv/mysweetplace`). If `/tmp` and `/srv` share a full filesystem, moving temporary files will not help: free space or enlarge the filesystem first.
+
 ## License
 
 [Apache 2.0](LICENSE). Brand icons come from [simple-icons](https://simpleicons.org) (CC0), fonts from [Fontsource](https://fontsource.org) (OFL), and UI icons from [Lucide](https://lucide.dev) (ISC).

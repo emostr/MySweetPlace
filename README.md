@@ -85,6 +85,8 @@ Ruby собирается из исходников; этапы `configure` и �
 - Логи: `journalctl -u mysweetplace-backend -f`.
 - Дополнительные флаги: `--no-ssl`, `--firewall`, `--branch`, `--repo`, `--seed`.
 
+Временные файлы сборки Ruby размещаются в `/srv/mysweetplace/tmp`, чтобы не зависеть от размера отдельного `/tmp`. Команды пользователя приложения запускаются из `/srv/mysweetplace`, а не из домашней папки администратора. При ошибке `No space left on device` проверьте свободное место (`df -h /tmp /srv/mysweetplace`) и inode (`df -i /tmp /srv/mysweetplace`). Если `/tmp` и `/srv` находятся на одном заполненном разделе, перенос временных файлов не поможет: нужно освободить место или увеличить раздел.
+
 ## Лицензия
 
 [Apache 2.0](LICENSE). Иконки брендов взяты из [simple-icons](https://simpleicons.org) (CC0), шрифты из [Fontsource](https://fontsource.org) (OFL), иконки интерфейса из [Lucide](https://lucide.dev) (ISC).

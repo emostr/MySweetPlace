@@ -7,6 +7,7 @@ APP_USER=mysweetplace
 APP_HOME=/srv/mysweetplace
 APP_DIR=$APP_HOME/app
 STORAGE_DIR=$APP_HOME/storage
+BUILD_TMP_DIR=$APP_HOME/tmp
 ENV_DIR=/etc/mysweetplace
 DB_NAME=mysweetplace_production
 NODE_MAJOR=24
@@ -53,7 +54,7 @@ done
 step() { printf '\n\033[1;35m==> %s\033[0m\n' "$*"; }
 note() { printf '    %s\n' "$*"; }
 warn() { printf '\033[1;33m!!  %s\033[0m\n' "$*" >&2; }
-as_app() { sudo -u "$APP_USER" -H bash -lc "$*"; }
+as_app() { sudo -u "$APP_USER" -H bash -lc "cd '$APP_HOME' && $*"; }
 
 trap 'warn "Deployment failed on line $LINENO"' ERR
 
@@ -92,6 +93,7 @@ if ! id -u "$APP_USER" >/dev/null 2>&1; then
 	useradd --system --create-home --home-dir "$APP_HOME" --shell /bin/bash "$APP_USER"
 fi
 install -d -o "$APP_USER" -g "$APP_USER" -m 750 "$APP_HOME" "$STORAGE_DIR"
+install -d -o "$APP_USER" -g "$APP_USER" -m 700 "$BUILD_TMP_DIR"
 install -d -o root -g "$APP_USER" -m 750 "$ENV_DIR"
 
 step "Code ($REPO, $BRANCH)"
@@ -114,8 +116,9 @@ fi
 RBENV="$APP_HOME/.rbenv/bin/rbenv"
 if ! as_app "$RBENV versions --bare | grep -qx '$RUBY_VERSION'"; then
 	note "compiling ruby $RUBY_VERSION from source; this can take several minutes"
+	note "temporary build files: $BUILD_TMP_DIR (requires free disk space)"
 	note "build output follows; wait for completion (Ctrl+C interrupts deployment)"
-	as_app "RUBY_CONFIGURE_OPTS=--disable-install-doc $RBENV install -s -v '$RUBY_VERSION'"
+	as_app "TMPDIR='$BUILD_TMP_DIR' RUBY_CONFIGURE_OPTS=--disable-install-doc $RBENV install -s -v '$RUBY_VERSION'"
 fi
 as_app "cd '$APP_DIR/backend' && $RBENV exec gem install bundler --conservative --no-document >/dev/null"
 
