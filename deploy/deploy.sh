@@ -31,7 +31,7 @@ Usage: sudo $0 [options]
   --branch NAME     branch to deploy (default: $BRANCH)
   --no-ssl          don't request a certificate, serve plain http
   --firewall        allow only ssh and http(s) with ufw
-  --seed            load demo places (only for testing servers)
+  --seed            ensure the mascot @niki exists (also on an existing database)
   -h, --help        show this help
 EOF
 }
@@ -113,8 +113,9 @@ else
 fi
 RBENV="$APP_HOME/.rbenv/bin/rbenv"
 if ! as_app "$RBENV versions --bare | grep -qx '$RUBY_VERSION'"; then
-	note "compiling ruby $RUBY_VERSION, it takes a few minutes"
-	as_app "RUBY_CONFIGURE_OPTS=--disable-install-doc $RBENV install -s '$RUBY_VERSION'"
+	note "compiling ruby $RUBY_VERSION from source; this can take several minutes"
+	note "build output follows; wait for completion (Ctrl+C interrupts deployment)"
+	as_app "RUBY_CONFIGURE_OPTS=--disable-install-doc $RBENV install -s -v '$RUBY_VERSION'"
 fi
 as_app "cd '$APP_DIR/backend' && $RBENV exec gem install bundler --conservative --no-document >/dev/null"
 

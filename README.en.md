@@ -36,11 +36,11 @@ bin/        development helpers
 You need Ruby 4.0.6 (for example via rbenv), Node.js 22+ and PostgreSQL 16+.
 
 ```bash
-bin/setup   # dependencies, database and demo places
+bin/setup   # dependencies, database and Niki's mascot place
 bin/dev     # api on :3000, site on http://localhost:5173
 ```
 
-Demo login: `niki@example.com` / `password123`. You can see the winter effects any time with `/?season=winter` or `/?season=festive`.
+Local Niki login: `niki@example.com` / `password123`. You can see the winter effects any time with `/?season=winter` or `/?season=festive`.
 
 Checks:
 
@@ -75,6 +75,10 @@ The script:
 - configures nginx and obtains a Let's Encrypt certificate.
 
 Running the same command again updates the app to the latest `master`.
+
+On the first database setup, `db:prepare` automatically loads seed data: only the mascot `@niki`, including the avatar, theme and notes. It creates no test profiles, neighbourships or guestbook entries. In production, Niki gets a random password; set `NIKI_PASSWORD` in `/etc/mysweetplace/backend.env` before the mascot is first created to choose your own. Re-running seeds preserves the existing profile and password and does not delete previously created accounts. Use `--seed` to create Niki in an already prepared database as well.
+
+Ruby is built from source; configuration and compilation can take several minutes. The script shows verbose build output. `^C` before `BUILD FAILED` indicates an interruption (usually Ctrl+C): rerun deployment and let it finish. If the build fails on its own, check the ruby-build output and any log path it prints; `Deployment failed on line 56` points to the command wrapper, not the underlying Ruby error.
 
 - Settings live in `/etc/mysweetplace/backend.env` and `frontend.env`: SMTP for password reset emails and a forced season.
 - Uploaded files are stored in `/srv/mysweetplace/storage`.
